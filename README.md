@@ -5,7 +5,7 @@
 docker ps -a -q | xargs docker rm
 
 # Delete old images which don't have TAG
-docker images --filter "dangling=true" -q | xargs          docker rmi
+docker images --filter "dangling=true" -q | xargs docker rmi
 
 # Delete snapshots
 sudo docker images | awk '/^.*snapshot.*/ {print $3}'                        | xargs docker rmi
