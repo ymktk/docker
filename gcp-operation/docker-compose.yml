@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+  centos:
+    build: .
+    container_name: gcpope
+    working_dir: "/tmp/shared"
+    volumes:
+     - /c/Users/Public/docker-shared:/tmp/shared
+    tty: true # Can keep running
