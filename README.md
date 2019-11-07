@@ -13,3 +13,13 @@ sudo docker images | awk '/^.*snapshot.*/ {print $3}'                        | x
 # Delete more than 7 days
 sudo docker images | grep rwasp-docker | grep 'weeks ago' | awk '{print $3}' | xargs docker rmi
 ```
+
+
+# Basic Commands
+
+```bash
+# docker build -t ${new image name} ${Docker file directory}
+docker image build -t hoge .
+docker image build -t test/dockerdesu:v1 ./Docker/study/
+
+```
