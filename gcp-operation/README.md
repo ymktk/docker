@@ -1,7 +1,7 @@
 # Docker for GCP operations
 This docker is having
-    - Google cloud SDK
-    - Terraform
+- Google cloud SDK
+- Terraform
 
 
 # Usage
