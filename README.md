@@ -3,9 +3,11 @@
 ```bash
 # Delete old instances
 docker ps -a -q | xargs docker rm
+docker container prune
 
 # Delete old images which don't have TAG
 docker images --filter "dangling=true" -q | xargs docker rmi
+docker image prune
 
 # Delete snapshots
 sudo docker images | awk '/^.*snapshot.*/ {print $3}'                        | xargs docker rmi
