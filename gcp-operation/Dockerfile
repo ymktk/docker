@@ -1,10 +1,10 @@
 From centos:centos7.6.1810
-LABEL maintainer="Takahiro Yamaki"
+LABEL maintainer="takahiro.yamaki@example.com"
 
 COPY google-cloud-sdk.repo /etc/yum.repos.d/
 
 WORKDIR /tmp
-    
+
 RUN set -x \
     && yum update  -y \
     && yum install -y \
