@@ -1,0 +1,21 @@
+version: '3.1'
+
+services:
+  db:
+    image: mysql:5.7.28
+    restart: always
+    hostname: demomysql
+    env_file:
+      - .env
+    environment:
+      TZ: "Asia/Singapore"
+      BIND-ADDRESS: 0.0.0.0
+    ports:
+      - 3306:3306
+
+    volumes:
+      # Initial script
+      # - ./db/mysql_init:/docker-entrypoint-initdb.d
+      # Persistet
+      - ./db/mysql_data:/var/lib/mysql
+    tty: true
