@@ -52,3 +52,22 @@ kubectl run -it --rm --image centos:centos7.6.1810 --restart=Never testpod -- cu
 
 ```
 
+# Sample 4 (Ingress)
+
+```bash
+# ingress -> service (type: NodePort) -> deployment -> replicaset -> pod
+
+$ kubectl get svc
+NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+nginx1-svc   NodePort    10.105.242.188   <none>        7020:31975/TCP   71s
+
+$ kubectl get ingress
+NAME            HOSTS   ADDRESS   PORTS   AGE
+nginx-ingress   *                 80      13s
+
+# Can reach -> http://localhost/
+
+# Also you can reach from a pod in the same cluster
+kubectl run -it --rm --image centos:centos7.6.1810 --restart=Never testpod -- curl -s http://nginx1-svc.default.svc.cluster.local:7020
+
+```
