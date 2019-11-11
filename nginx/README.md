@@ -15,7 +15,7 @@ kubectl delete -f k8s-sample1.yaml
 
 ```
 
-# Sample 2
+# Sample 2 (Internal Network, LB in a cluster)
 
 
 ```bash
@@ -34,20 +34,21 @@ kubectl run -it --rm --image centos:centos7.6.1810 --restart=Never testpod -- cu
 
 ```
 
-# Sample 3
+# Sample 3 (Expose a Service)
 
 
 ```bash
-# service (type: ClusterIP) -> deployment -> replicaset -> pod
+# service (type: NodePort, k8s Node port(30000)->ClusterIP port(7010)->) -> deployment -> replicaset -> pod
 
 $ kubectl get svc
-NAME            TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)    AGE
-nginx-service   ClusterIP   10.97.5.194   <none>        7000/TCP   10s
+NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+nginx-svc    NodePort    10.103.83.234   <none>        7010:30000/TCP   22s
 
-# Can't reach -> http://localhost:7000/
 
-# Can reach from a pod in the same cluster
-kubectl run -it --rm --image centos:centos7.6.1810 --restart=Never testpod -- curl -s http://nginx-service:7000
+# Can reach -> http://localhost:30000/
+
+# Also you can reach from a pod in the same cluster
+kubectl run -it --rm --image centos:centos7.6.1810 --restart=Never testpod -- curl -s http://nginx-svc.default.svc.cluster.local:7010
 
 ```
 
