@@ -2,8 +2,6 @@
 
 # Sample 1
 
-http://localhost:7777/
-
 ```bash
 # service (type: LoadBalancer) -> deployment -> replicaset -> pod
 
@@ -12,8 +10,9 @@ kubectl apply -f k8s-sample1.yaml
 
 # Apply
 kubectl delete -f k8s-sample1.yaml
-
 ```
+
+- http://localhost:7777/
 
 # Sample 2 (Internal Network, LB in a cluster)
 
@@ -49,8 +48,9 @@ nginx-svc    NodePort    10.103.83.234   <none>        7010:30000/TCP   22s
 
 # Also you can reach from a pod in the same cluster
 kubectl run -it --rm --image centos:centos7.6.1810 --restart=Never testpod -- curl -s http://nginx-svc.default.svc.cluster.local:7010
-
 ```
+
+- http://localhost:30000/
 
 # Sample 4 (Ingress)
 
@@ -69,8 +69,9 @@ nginx-ingress   *                 80      13s
 
 # Also you can reach from a pod in the same cluster
 kubectl run -it --rm --image centos:centos7.6.1810 --restart=Never testpod -- curl -s http://nginx1-svc.default.svc.cluster.local:7020
-
 ```
+
+- http://localhost/
 
 # Sample 5 (Ingress, path routing)
 
@@ -100,9 +101,13 @@ replicaset.apps/nginx-deployment2-6bb5d9d8f6   1         1         1       6m45s
 
 ```
 
-http://localhost/path1/
-http://localhost/path2/
-http://localhost/
+- http://localhost/path1/
+- http://localhost/path2/
+- http://localhost/
 
 
 # Sample 6 (Nginx proxy)
+
+
+- http://localhost/path1/
+- http://localhost/
