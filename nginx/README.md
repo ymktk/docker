@@ -71,3 +71,35 @@ nginx-ingress   *                 80      13s
 kubectl run -it --rm --image centos:centos7.6.1810 --restart=Never testpod -- curl -s http://nginx1-svc.default.svc.cluster.local:7020
 
 ```
+
+# Sample 5 (Ingress, path routing)
+
+```bash
+kubectl get all
+NAME                                     READY   STATUS    RESTARTS   AGE
+pod/nginx-deployment1-59d475f4c4-pmmfd   1/1     Running   0          6m45s
+pod/nginx-deployment2-6bb5d9d8f6-8h5zc   1/1     Running   0          6m45s
+
+NAME                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+service/kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP          2d15h
+service/nginx1-svc   NodePort    10.99.10.136    <none>        7030:31631/TCP   6m45s
+service/nginx2-svc   NodePort    10.107.214.92   <none>        7040:32682/TCP   6m45s
+
+NAME                                READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/nginx-deployment1   1/1     1            1           6m45s
+deployment.apps/nginx-deployment2   1/1     1            1           6m45s
+
+NAME                                           DESIRED   CURRENT   READY   AGE
+replicaset.apps/nginx-deployment1-59d475f4c4   1         1         1       6m45s
+replicaset.apps/nginx-deployment2-6bb5d9d8f6   1         1         1       6m45s
+
+ $ kubectl exec -it nginx-deployment1-59d475f4c4-pmmfd -- mkdir /usr/share/nginx/html/path1
+ $ kubectl exec -it nginx-deployment1-59d475f4c4-pmmfd -- cp /etc/hostname /usr/share/nginx/html/path1/index.html
+ $ kubectl exec -it nginx-deployment2-6bb5d9d8f6-8h5zc -- mkdir /usr/share/nginx/html/path2
+ $ kubectl exec -it nginx-deployment2-6bb5d9d8f6-8h5zc -- cp /etc/hostname /usr/share/nginx/html/path2/index.html
+
+```
+
+http://localhost/path1/
+http://localhost/path2/
+http://localhost/
