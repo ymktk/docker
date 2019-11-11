@@ -29,6 +29,7 @@ nginx-service   ClusterIP   10.97.5.194   <none>        7000/TCP   10s
 
 # Can reach from a pod in the same cluster
 kubectl run -it --rm --image centos:centos7.6.1810 --restart=Never testpod -- curl -s http://nginx-service:7000
+kubectl run -it --rm --image centos:centos7.6.1810 --restart=Never testpod -- curl -s http://nginx-service.default:7000
 kubectl run -it --rm --image centos:centos7.6.1810 --restart=Never testpod -- curl -s http://nginx-service.default.svc.cluster.local:7000
 
 ```
