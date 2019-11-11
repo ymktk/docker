@@ -103,3 +103,6 @@ replicaset.apps/nginx-deployment2-6bb5d9d8f6   1         1         1       6m45s
 http://localhost/path1/
 http://localhost/path2/
 http://localhost/
+
+
+# Sample 6 (Nginx proxy)
