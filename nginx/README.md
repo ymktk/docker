@@ -1,6 +1,9 @@
+# nginx + k8s
 
+- reference
+  - https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
 
-# Sample 1
+## Sample 1
 
 ```bash
 # service (type: LoadBalancer) -> deployment -> replicaset -> pod
@@ -14,8 +17,7 @@ kubectl delete -f k8s-sample1.yaml
 
 - http://localhost:7777/
 
-# Sample 2 (Internal Network, LB in a cluster)
-
+## Sample 2 (Internal Network, LB in a cluster)
 
 ```bash
 # service (type: ClusterIP) -> deployment -> replicaset -> pod
@@ -33,8 +35,7 @@ kubectl run -it --rm --image centos:centos7.6.1810 --restart=Never testpod -- cu
 
 ```
 
-# Sample 3 (Expose a Service)
-
+## Sample 3 (Expose a Service)
 
 ```bash
 # service (type: NodePort, k8s Node port(30000)->ClusterIP port(7010)->) -> deployment -> replicaset -> pod
@@ -52,7 +53,7 @@ kubectl run -it --rm --image centos:centos7.6.1810 --restart=Never testpod -- cu
 
 - http://localhost:30000/
 
-# Sample 4 (Ingress)
+## Sample 4 (Ingress)
 
 ```bash
 # ingress -> service (type: NodePort) -> deployment -> replicaset -> pod
@@ -73,7 +74,7 @@ kubectl run -it --rm --image centos:centos7.6.1810 --restart=Never testpod -- cu
 
 - http://localhost/
 
-# Sample 5 (Ingress, path routing)
+## Sample 5 (Ingress, path routing)
 
 ```bash
 kubectl get all
@@ -105,9 +106,7 @@ replicaset.apps/nginx-deployment2-6bb5d9d8f6   1         1         1       6m45s
 - http://localhost/path2/
 - http://localhost/
 
-
-# Sample 6 (Nginx proxy)
-
+## Sample 6 (Nginx proxy)
 
 - http://localhost/path1/
 - http://localhost/
