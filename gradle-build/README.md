@@ -1,5 +1,7 @@
 # Spring web application build by gradle
 
+## Gradle commands
+
 ```bash
 # Task list
 ./gradlew tasks
@@ -9,6 +11,17 @@
 
 ```
 
+## Docker commands
+
+```bash
+cd /PAHT-TO/gradle-uild/
+
+docker build -t gradlesample . --target release
+
+docker run -d -p 8085:8085 gradlesample
+```
+
+* <http://localhost:8085/>
 
 ## Help from Spring
 
