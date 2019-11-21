@@ -11,7 +11,7 @@ public class DemoApplication {
 
 	@RequestMapping("/")
   String index(){
-      return "Hello World!";
+      return "Hello Gradle!";
   }
 
 	public static void main(String[] args) {
