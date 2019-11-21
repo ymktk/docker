@@ -1,6 +1,6 @@
 # Reverse proxy nginx sample
 
-```bash
+```
           localhost:8083
                 +
                 |    location /wp-context/+-----------------+
