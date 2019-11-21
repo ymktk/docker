@@ -1,0 +1,6 @@
+{
+  "movies": [
+    {"id": 1, "name": "movie1", "year": "2019", "rating": 5.1},
+    {"id": 2, "name": "movie2", "year": "2000", "rating": 1.2}
+  ]
+}
