@@ -2,6 +2,8 @@
 This docker is having
 - Google cloud SDK
 - Terraform
+- nodejs
+- npm
 
 
 # Usage
