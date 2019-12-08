@@ -14,14 +14,16 @@ RUN yum install -y wget unzip \
     && wget  https://releases.hashicorp.com/terraform/0.12.17/terraform_0.12.17_linux_amd64.zip \
     && unzip ./terraform_0.12.17_linux_amd64.zip -d /usr/local/bin/
 
-# node, firebase
+# firebase-tools
 RUN yum install -y which \
     && curl -sL https://rpm.nodesource.com/setup_12.x | bash - \
     && yum install -y nodejs \
-    && npm update -g npm
+    && npm update  -g npm \
+    && npm install -g firebase-tools
 
 # Version info
 RUN gcloud -v \
     && terraform -v \
     && node -v \
-    && npm  -v
+    && npm  -v \
+    && firebase -V
