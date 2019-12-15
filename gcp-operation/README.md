@@ -15,6 +15,20 @@ docker exec -it gcpope /bin/bash
 docker-compose down
 ```
 
+- gcloud
+
+```bash
+# インストールされているコンポーネントの詳細を見ることができます。
+gcloud components list
+
+# インストールされているコンポーネントをアップデートします。
+gcloud components update
+
+# App Engine SDK for Java のインストール
+# gcloud components install app-engine-java
+```
+
+
 
 # References
 
