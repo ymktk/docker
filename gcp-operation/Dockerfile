@@ -11,8 +11,8 @@ RUN set -x \
 
 # Terraform
 RUN yum install -y wget unzip \
-    && wget  https://releases.hashicorp.com/terraform/0.12.17/terraform_0.12.17_linux_amd64.zip \
-    && unzip ./terraform_0.12.17_linux_amd64.zip -d /usr/local/bin/
+    && wget  https://releases.hashicorp.com/terraform/0.12.18/terraform_0.12.18_linux_amd64.zip \
+    && unzip ./terraform_0.12.18_linux_amd64.zip -d /usr/local/bin/
 
 # firebase-tools
 RUN yum install -y which \
