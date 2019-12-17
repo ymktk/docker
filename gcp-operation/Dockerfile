@@ -21,9 +21,6 @@ RUN yum install -y which \
     && npm update  -g npm \
     && npm install -g firebase-tools
 
-# Cloud Datastore
-RUN yum install -y google-cloud-sdk-datastore-emulator
-
 # Version info
 RUN gcloud -v \
     && terraform -v \
