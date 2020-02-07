@@ -1,9 +1,9 @@
 version: '3.7'
 
 services:
-  a:
+  control:
     build: .
-    container_name: ansbile
+    container_name: ansible
     working_dir: "/tmp/shared"
     volumes:
       - /c/Users/Public/docker-shared:/tmp/shared
