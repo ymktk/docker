@@ -1,9 +1,9 @@
 version: '3.7'
 
 services:
-  centos:
-    image: centos:centos7.6.1810
-    container_name: cent
+  a:
+    build: .
+    container_name: ansbile
     working_dir: "/tmp/shared"
     volumes:
       - /c/Users/Public/docker-shared:/tmp/shared
