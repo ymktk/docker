@@ -3,19 +3,20 @@ LABEL maintainer="takahiro.yamaki@example.com"
 
 RUN set -x \
     && dnf update  -y \
-    && dnf install sudo -y \
-    && dnf install python3-pip -y \
-    && useradd -m ansible \
-    && echo "ansible:ansible" | chpasswd
-    # && echo 'ansible ALL=(ALL) ALL' >> /etc/sudoers
+    && dnf install python3 -y \
+    && useradd -m ansible
 
 USER ansible
-WORKDIR /tmp
 
 RUN set -x \
     && id \
-    && pip3 install --user ansible
+    && python3 -m venv ~/ansible-py3 \
+    && source ~/ansible-py3/bin/activate \
+    && pip3 install --upgrade pip \
+    && pip3 install ansible
 
 # Version info
 RUN cat /etc/redhat-release \
-    && ansible --version
+    && python3 --version
+
+WORKDIR /home/ansible/

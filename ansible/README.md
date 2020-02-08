@@ -1,6 +1,7 @@
 # Docker for Ansible operations
 This docker is having
--
+- Python 3.6.8
+- Ansible 2.9.4
 
 
 # Usage
@@ -8,14 +9,21 @@ This docker is having
 ```bash
 docker-compose up -d
 
-docker exec -it gcpope /bin/bash
+docker exec -it ansible bash
 
 docker-compose down
 ```
 
+As ansible user
+```bash
+cd ~
 
+source ansible-py3/bin/activate
 
+ansible --version
+
+```
 
 # References
 
-- [Installing Terraform](https://learn.hashicorp.com/terraform/getting-started/install.html)
+- [[Ansible] CentOS 8 に Ansible をインストールする（Python 3 + venv + pip）](https://tekunabe.hatenablog.jp/entry/2019/10/06/ansible_centos8_python3_pip)
