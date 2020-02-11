@@ -2,13 +2,12 @@ FROM centos:centos7.7.1908
 LABEL maintainer="takahiro.yamaki@example.com"
 
 RUN set -x \
-    && bash \
     && yum update  -y \
     && yum install python3-pip -y \
     && useradd -m ansible
 
 USER ansible
-WORKDIR /tmp
+WORKDIR /home/ansible
 
 RUN set -x \
     && id  \
