@@ -3,8 +3,10 @@ LABEL maintainer="takahiro.yamaki@example.com"
 
 RUN set -x \
     && yum update  -y \
-    && yum install python36 python36-pip python36-devel -y \
-    && useradd -m ansible
+    && yum install python36 python36-pip python36-devel sudo -y \
+    && useradd -m ansible \
+    && echo "ansible:ansible" | chpasswd \
+    && echo 'ansible ALL=(ALL) ALL' >> /etc/sudoers
 
 USER ansible
 WORKDIR /home/ansible
