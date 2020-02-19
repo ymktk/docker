@@ -3,7 +3,7 @@ LABEL maintainer="takahiro.yamaki@example.com"
 
 RUN set -x \
     && yum update  -y \
-    && yum install python3-pip -y \
+    && yum install python36 python36-pip python36-devel -y \
     && useradd -m ansible
 
 USER ansible
