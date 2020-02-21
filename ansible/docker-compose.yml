@@ -1,7 +1,7 @@
 version: '3.7'
 
 services:
-  control:
+  controller:
     build: .
     container_name: ansible
     working_dir: "/tmp/shared"
