@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   centos:
-    image: centos:centos7.6.1810
+    image: centos:centos7.7.1908
     container_name: cent
     working_dir: "/tmp/shared"
     volumes:
