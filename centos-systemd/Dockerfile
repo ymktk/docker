@@ -12,7 +12,9 @@ RUN set -x \
     && echo 'jenkins ALL=(ALL) ALL' >> /etc/sudoers \
     # for sshd
     && systemctl enable sshd.service \
+    && mkdir /home/root/.ssh    \
     && mkdir /home/jenkins/.ssh \
+    && chmod 700 /home/root/.ssh    \
     && chmod 700 /home/jenkins/.ssh \
     && chown jenkins:jenkins /home/jenkins/.ssh
 
