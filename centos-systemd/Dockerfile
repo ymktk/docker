@@ -3,7 +3,7 @@ LABEL maintainer="takahiro.yamaki@example.com"
 
 RUN set -x \
     && yum update  -y \
-    && yum  install \
+    && yum install \
             openssh-server \
             sudo -y \
     && yum clean all \
@@ -11,7 +11,10 @@ RUN set -x \
     && echo "jenkins:jenkins" | chpasswd \
     && echo 'jenkins ALL=(ALL) ALL' >> /etc/sudoers \
     # for sshd
-    && systemctl enable sshd.service
+    && systemctl enable sshd.service \
+    && mkdir /home/jenkins/.ssh \
+    && chmod 700 /home/jenkins/.ssh \
+    && chown jenkins:jenkins /home/jenkins/.ssh
 
 # RUN rm /var/run/nologin
 
