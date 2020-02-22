@@ -18,6 +18,7 @@ WORKDIR /home/ansible
 
 RUN set -x \
     && id  \
+    && ssh-keygen -t rsa -b 4096 -N "" -f "/home/ansible/.ssh/id_rsa" \
     && pip3 install --user ansible
 
 ENV PATH $PATH:/home/ansible/.local/bin
