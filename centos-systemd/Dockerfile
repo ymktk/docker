@@ -6,6 +6,7 @@ RUN set -x \
     && yum  install \
             openssh-server \
             sudo -y \
+    && yum clean all \
     && useradd -m jenkins \
     && echo "jenkins:jenkins" | chpasswd \
     && echo 'jenkins ALL=(ALL) ALL' >> /etc/sudoers \
