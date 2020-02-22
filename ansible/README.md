@@ -1,6 +1,7 @@
 # Docker for Ansible operations
 This docker is having
 - Python 3.6.8
+- pip 9.0.3
 - Ansible 2.9.5
 
 
