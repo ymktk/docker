@@ -9,6 +9,7 @@ RUN set -x \
             python36-devel \
             openssh-clients \
             sudo -y \
+    && yum clean all \
     && useradd -m ansible \
     && echo "ansible:ansible" | chpasswd \
     && echo 'ansible ALL=(ALL) ALL' >> /etc/sudoers
