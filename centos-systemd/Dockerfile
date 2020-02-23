@@ -8,17 +8,21 @@ RUN set -x \
             sudo -y \
     && yum clean all \
     && useradd -m jenkins \
-    && echo "jenkins:jenkins" | chpasswd \
-    && echo 'jenkins ALL=(ALL) ALL' >> /etc/sudoers \
-    # for sshd
-    && systemctl enable sshd.service \
-    && mkdir     /root/.ssh \
-    && chmod 700 /root/.ssh \
-    && mkdir                 /home/jenkins/.ssh \
-    && chmod 700             /home/jenkins/.ssh \
-    && chown jenkins:jenkins /home/jenkins/.ssh
+    && useradd -m tomcat  \
+    && mkdir -m 700 /root/.ssh \
+    && systemctl enable sshd.service
 
 # RUN rm /var/run/nologin
+
+RUN echo    'jenkins ALL=NOPASSWD: /bin/mkdir'     >> /etc/sudoers \
+    && echo 'jenkins ALL=NOPASSWD: /bin/yum'       >> /etc/sudoers \
+    && echo 'jenkins ALL=NOPASSWD: /bin/systemctl' >> /etc/sudoers
+
+USER jenkins
+WORKDIR /home/jenkins
+RUN  ssh-keygen -t rsa -b 4096 -N "" -f "/home/jenkins/.ssh/id_rsa"
+
+USER root
 
 EXPOSE 80
 EXPOSE 8081
