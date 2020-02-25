@@ -2,7 +2,9 @@ version: '3.7'
 
 services:
   controller:
-    build: .
+    build:
+      context: ./centos7
+      dockerfile: Dockerfile
     container_name: ansible
     working_dir: "/tmp/shared"
     volumes:
