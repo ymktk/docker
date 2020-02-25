@@ -15,6 +15,8 @@ RUN set -x \
 # RUN rm /var/run/nologin
 
 RUN echo    'jenkins ALL=NOPASSWD: /bin/mkdir'     >> /etc/sudoers \
+    && echo 'jenkins ALL=NOPASSWD: /bin/curl'      >> /etc/sudoers \
+    && echo 'jenkins ALL=NOPASSWD: /bin/rpm'       >> /etc/sudoers \
     && echo 'jenkins ALL=NOPASSWD: /bin/yum'       >> /etc/sudoers \
     && echo 'jenkins ALL=NOPASSWD: /bin/systemctl' >> /etc/sudoers
 
