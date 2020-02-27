@@ -21,5 +21,4 @@ RUN set -x \
 ENV PATH $PATH:/home/ansible/.local/bin
 
 # Version info
-# RUN cat /etc/redhat-release \
-#     && ansible --version
+RUN ansible --version
