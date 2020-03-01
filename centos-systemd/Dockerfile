@@ -24,6 +24,11 @@ USER jenkins
 WORKDIR /home/jenkins
 RUN  ssh-keygen -t rsa -b 4096 -N "" -f "/home/jenkins/.ssh/id_rsa"
 
+USER tomcat
+WORKDIR /home/tomcat
+RUN ssh-keygen -N "" -f "/home/tomcat/.ssh/id_rsa" \
+    && rm /home/tomcat/.ssh/id_rsa*
+
 USER root
 
 EXPOSE 80
