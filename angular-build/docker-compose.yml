@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  builder:
+    build: .
+    container_name: angular
+    working_dir: "/tmp/"
+    ports:
+      - "4200:4200"
+    volumes:
+      - /c/Users/Public/docker-shared/test:/tmp/test
+    tty: true # Can keep running
