@@ -11,18 +11,17 @@ RUN set -x \
             sudo -y \
     && yum clean all \
     && useradd -m ansible \
-    && echo "ansible:ansible" | chpasswd \
-    && echo 'ansible ALL=(ALL) ALL' >> /etc/sudoers
+    && pip3 install ansible
+
+WORKDIR /etc
+RUN ln -nfs ../usr/share/zoneinfo/Asia/Singapore localtime
 
 USER ansible
 WORKDIR /home/ansible
 
 RUN set -x \
     && id  \
-    && ssh-keygen -t rsa -b 4096 -N "" -f "/home/ansible/.ssh/id_rsa" \
-    && pip3 install --user ansible
-
-ENV PATH $PATH:/home/ansible/.local/bin
+    && ssh-keygen -t rsa -b 4096 -N "" -f "/home/ansible/.ssh/id_rsa"
 
 # Version info
 RUN cat /etc/redhat-release \

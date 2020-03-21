@@ -3,10 +3,9 @@ version: '3.7'
 services:
   controller:
     build:
-      context: ./alpine3.10
-      dockerfile: Dockerfile
+      context:      ./centos7
+      dockerfile:   Dockerfile
     container_name: ansible
-    working_dir: "/tmp/shared"
     volumes:
       - /c/Users/Public/docker-shared:/tmp/shared
     tty: true # Can keep running
