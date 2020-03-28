@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  container:
+    image: ansible/ansible-runner:1.4.4
+    container_name: ansible
+    # volumes:
+    #   - /c/Users/Public/repos/docker/ansible-runner/runner:/root/runner
+    #   - /c/Users/Public/repos/docker/ansible-runner/ansible.cfg:/etc/ansible.cfg
+    # environment:
+    #   - RUNNER_PROJECT_DIR=/root/project/roles
+    #   - RUNNER_ROLE=test-role
