@@ -1,11 +1,11 @@
-version: '3.7'
+version: '3.8'
 
 services:
   controller:
     build:
       context:      ./centos7
       dockerfile:   Dockerfile
-    container_name: ansible
+    container_name: cont
     volumes:
       - /c/Users/Public/docker-shared:/tmp/shared
     tty: true # Can keep running

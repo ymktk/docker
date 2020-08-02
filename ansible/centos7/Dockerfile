@@ -1,12 +1,12 @@
-FROM centos:centos7.8.2003
+FROM  centos:centos7.8.2003
 LABEL maintainer="takahiro.yamaki@example.com"
 
 RUN set -x \
     && yum update  -y \
-    && yum install \
-            python36 \
+    && yum install -y \
+            python36  \
             python36-pip \
-            python36-devel \
+            python36-devel  \
             openssh-clients \
     && yum clean all \
     && pip3 install ansible

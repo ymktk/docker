@@ -6,6 +6,11 @@ This docker is having
 # Usage
 
 ```bash
+
+cd /path/to/ansible/
+
+COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose build
+
 docker-compose up -d
 
 docker exec -it ansible bash
