@@ -14,10 +14,13 @@ cd /path/to/ansible/
 COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose build
 
 docker-compose up -d
-
 docker exec -it ansible bash
-
 docker-compose down
+
+# or
+
+docker run -it --rm -v /c/Users/Public/docker-shared:/tmp/shared ansible_controller bash
+
 ```
 
 As ansible user
