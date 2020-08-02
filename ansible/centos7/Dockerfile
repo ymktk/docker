@@ -1,4 +1,4 @@
-FROM centos:centos7.7.1908
+FROM centos:centos7.8.2003
 LABEL maintainer="takahiro.yamaki@example.com"
 
 RUN set -x \
@@ -8,7 +8,6 @@ RUN set -x \
             python36-pip \
             python36-devel \
             openssh-clients \
-            sudo -y \
     && yum clean all \
     && pip3 install ansible
 
