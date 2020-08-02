@@ -1,6 +1,8 @@
 FROM  centos:centos7.8.2003
 LABEL maintainer="takahiro.yamaki@example.com"
 
+COPY ./kubernetes.repo /etc/yum.repos.d/
+
 RUN set -x \
     && yum update  -y \
     && yum install -y \
@@ -9,6 +11,7 @@ RUN set -x \
             python36-devel  \
             openssh-clients \
             wget \
+            kubectl \
     && yum clean all \
     && pip3 install ansible
 
@@ -16,7 +19,8 @@ WORKDIR /tmp
 RUN wget https://github.com/moby/buildkit/releases/download/v0.7.2/buildkit-v0.7.2.linux-amd64.tar.gz \
     && tar xzf buildkit-v0.7.2.linux-amd64.tar.gz \
     && rm  -f  buildkit-v0.7.2.linux-amd64.tar.gz \
-    && mv ./bin/* /usr/local/bin/
+    && mv     ./bin/* /usr/local/bin/ \
+    && rm -rf ./bin
 
 WORKDIR /etc
 RUN ln -nfs ../usr/share/zoneinfo/Asia/Singapore localtime \
@@ -37,4 +41,5 @@ RUN set -x \
 # Version info
 RUN cat /etc/redhat-release \
     && ansible  --version \
-    && buildctl --version
+    && buildctl --version \
+    && kubectl version --client

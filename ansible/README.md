@@ -1,6 +1,8 @@
 # Docker for Ansible operations
 This docker is having
-- Ansible 2.9.5
+- Ansible 2.9.11
+- github.com/moby/buildkit v0.7.2
+- kubectl v1.18.6
 
 
 # Usage
@@ -23,6 +25,9 @@ As ansible user
 python3 -V
 pip3 -V
 ansible --version
+buildctl --version
+kubectl version --client
+
 ```
 
 # References
