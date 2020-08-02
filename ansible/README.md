@@ -27,5 +27,6 @@ ansible --version
 
 # References
 
+- [moby/buildkit releases](https://github.com/moby/buildkit/releases)
 - [[Ansible] CentOS 8 に Ansible をインストールする（Python 3 + venv + pip）](https://tekunabe.hatenablog.jp/entry/2019/10/06/ansible_centos8_python3_pip)
 - [AnsibleをPython2.xからPython3.xに対応させる手順とトラブルシューティング](https://qiita.com/comefigo/items/766d42100356bdea8ff8)
