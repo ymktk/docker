@@ -1,0 +1,42 @@
+
+
+## Prepare docker images
+
+    # Ansible Controller
+    cd /path/to/docker/ansible/
+    docker-compose build
+    docker tag ansible_controller ansible_controller:0.1
+
+
+## Run local env
+
+    $ cd /path/to/docker/cicd-local-dev/k8s/
+
+    $ kubectl apply -f  local-dev.yaml
+
+    $ kubectl exec -it $(kubectl get pods --selector=app=ansible-pod -o jsonpath='{.items[*].metadata.name}') -- /bin/bash
+
+
+    ## Tips
+    $ kubectl get pods --show-labels
+    ---
+    NAME                       READY   STATUS    RESTARTS   AGE   LABELS
+    ansible-689f5cdfc5-mbp6l   1/1     Running   0          26m   app=ansible-pod,pod-template-hash=689f5cdfc5
+    ---
+
+    $ kubectl get -f local-dev.yaml
+    $ kubectl get deployment ansible
+    ---
+    NAME      READY   UP-TO-DATE   AVAILABLE   AGE
+    ansible   1/1     1            1           11m
+    ---
+
+    ## If you want to delete
+    kubectl delete -f local-dev.yaml
+
+
+### References
+
++ [kubectlチートシート](https://kubernetes.io/ja/docs/reference/kubectl/cheatsheet/)
++ [実行中のコンテナへのシェルを取得する](https://kubernetes.io/ja/docs/tasks/debug-application-cluster/get-shell-running-container/)
+  + [Get a Shell to a Running Container](https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/)

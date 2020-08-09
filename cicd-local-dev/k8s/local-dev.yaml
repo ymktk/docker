@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ansible
+  name: ansible
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ansible-pod
+  template:
+    metadata:
+      labels:
+        app: ansible-pod
+    spec:
+      containers:
+      - name: control
+        image: ansible_controller:0.1
+        tty: true
+        imagePullPolicy: IfNotPresent
+      restartPolicy: Always
