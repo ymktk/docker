@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -17,6 +18,30 @@ spec:
       containers:
       - name: control
         image: ansible_controller:0.1
+        tty: true
+        imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: jenkins
+  name: jenkins
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins-pod
+  template:
+    metadata:
+      labels:
+        app: jenkins-pod
+    spec:
+      containers:
+      - name: jk2
+        image: centos/systemd:2018
         tty: true
         imagePullPolicy: IfNotPresent
       restartPolicy: Always
