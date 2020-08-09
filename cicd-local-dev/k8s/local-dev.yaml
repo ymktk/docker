@@ -23,6 +23,22 @@ spec:
       restartPolicy: Always
 
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-jenkins-master
+  labels:
+    run: svc-jenkins-master
+spec:
+  ports:
+  - name: ssh
+    port: 22
+    targetPort: 22
+    protocol: TCP
+  selector:
+    run: jenkins-pod
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -41,7 +57,9 @@ spec:
     spec:
       containers:
       - name: jk2
-        image: jenkins-master:blank
+        image: centos:centos7.8.2003
         tty: true
         imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 22
       restartPolicy: Always

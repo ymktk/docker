@@ -49,7 +49,13 @@
 
 ## Communication between pods
 
+    # Confirm Jenkins Pod IP
     $ kubectl get pods --selector=app=jenkins-pod -o yaml | grep "podIP:"
+    $ kubectl get pods --selector=app=jenkins-pod -o wide
+
+    $ kubectl get svc svc-jenkins-master
+
+
 
 ### References
 
