@@ -23,4 +23,4 @@ RUN set -x \
 EXPOSE 22
 EXPOSE 8080
 
-CMD ["/etc/init.d/sshd", "start"]
+# CMD ["/etc/init.d/sshd", "start"]

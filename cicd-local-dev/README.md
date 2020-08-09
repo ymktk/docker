@@ -55,7 +55,11 @@
 
     $ kubectl get svc svc-jenkins-master
 
+    TODO
+    key copy from jenkins, copy to Ansible
 
+    # NG, NOW IP OK
+    ssh root@svc-jenkins-master
 
 ### References
 

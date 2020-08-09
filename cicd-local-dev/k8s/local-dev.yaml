@@ -57,9 +57,16 @@ spec:
     spec:
       containers:
       - name: jk2
-        image: centos:centos7.8.2003
+        image: jenkins-master:blank
         tty: true
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 22
+        lifecycle:
+          postStart:
+            exec:
+              command:
+              - sh
+              - -c
+              - "/etc/init.d/sshd start"
       restartPolicy: Always
