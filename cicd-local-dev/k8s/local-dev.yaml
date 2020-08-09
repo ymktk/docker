@@ -41,7 +41,7 @@ spec:
     spec:
       containers:
       - name: jk2
-        image: centos/systemd:2018
+        image: jenkins-master:blank
         tty: true
         imagePullPolicy: IfNotPresent
       restartPolicy: Always

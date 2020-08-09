@@ -3,13 +3,12 @@
 ## Prepare docker images
 
     # 1 Ansible Controller
-    cd /path/to/docker/ansible/
-    docker-compose build
-    docker tag ansible_controller ansible_controller:0.1
+    cd /path/to/docker/cicd-local-dev/ansible/centos7/
+    docker build -t ansible_controller:0.1 .
 
-    # 2 centos/systemd
-    docker pull centos/systemd
-    docker tag  centos/systemd centos/systemd:2018
+    # 2 Jenkins Master test machine blank image
+    cd /path/to/docker/cicd-local-dev/jenkins-master/
+    docker build -t jenkins-master:blank .
 
 ## Run local env
 
@@ -43,9 +42,14 @@
     ansible   1/1     1            1           11m
     ---
 
+
     ## If you want to delete
     kubectl delete -f local-dev.yaml
 
+
+## Communication between pods
+
+    $ kubectl get pods --selector=app=jenkins-pod -o yaml | grep "podIP:"
 
 ### References
 
