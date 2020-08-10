@@ -59,7 +59,7 @@ ansible   1/1     1            1           11m
 kubectl delete -f local-dev.yaml
 ```
 
-## Communication between pods
+## Access to pods
 
 ```
 ### Get private key of Jenkins
@@ -77,6 +77,10 @@ $ kubectl describe svc jenkins-master-clusterip
 
 ### SSH access within cluster
 $ ssh root@jenkins-master-clusterip
+
+### SSH access from external
+###   jenkins-master-nodeport > nodePort
+$ ssh -p 30022 root@localhost
 ```
 
 
