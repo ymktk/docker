@@ -71,9 +71,12 @@ $ kubectl get pods -l app=jenkins-pod -o yaml | grep "podIP:"
 $ kubectl get pods -l app=jenkins-pod -o custom-columns="NAME:{metadata.name}, IP:{status.podIP}"
 
 ### Service info
-$ kubectl get svc svc-jenkins-master
+$ kubectl get svc jenkins-master-clusterip
 
-$ kubectl describe svc svc-jenkins-master
+$ kubectl describe svc jenkins-master-clusterip
+
+### SSH access within cluster
+$ ssh root@jenkins-master-clusterip
 ```
 
 
