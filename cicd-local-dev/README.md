@@ -64,13 +64,19 @@ kubectl delete -f local-dev.yaml
 
 ```
 # Get private key of Jenkins
-$ kubectl exec -it $(kubectl get pods --selector=app=jenkins-pod -o jsonpath='{.items[*].metadata.name}') -- cat /root/.ssh/id_rsa
+$ kubectl exec -it $(kubectl get pods -l app=jenkins-pod -o jsonpath='{.items[*].metadata.name}') -- cat /root/.ssh/id_rsa
 
 # Confirm Jenkins Pod IP
-$ kubectl get pods --selector=app=jenkins-pod -o yaml | grep "podIP:"
-$ kubectl get pods --selector=app=jenkins-pod -o wide
 
+$ kubectl get pods -l app=jenkins-pod -o wide
+$ kubectl get pods -l app=jenkins-pod -o yaml | grep "podIP:"
+$ kubectl get pods -l app=jenkins-pod -o custom-columns="NAME:{metadata.name}, IP:{status.podIP}"
+
+
+# Service info
 $ kubectl get svc svc-jenkins-master
+
+$ kubectl describe svc svc-jenkins-master
 
 
 
