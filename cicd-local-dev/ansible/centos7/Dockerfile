@@ -34,9 +34,9 @@ RUN ln -nfs ../usr/share/zoneinfo/Asia/Singapore localtime \
 USER ansible
 WORKDIR /home/ansible
 
-RUN set -x \
-    && id  \
-    && ssh-keygen -t rsa -b 4096 -N "" -f "/home/ansible/.ssh/id_rsa"
+# RUN set -x \
+#     && id  \
+#     && ssh-keygen -t rsa -b 4096 -N "" -f "/home/ansible/.ssh/id_rsa"
 
 # Version info
 RUN cat /etc/redhat-release \
