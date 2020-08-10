@@ -1,0 +1,38 @@
+---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   labels:
+#     app: ansible
+#   name: ansible
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: ansible-pod
+#   template:
+#     metadata:
+#       labels:
+#         app: ansible-pod
+#     spec:
+#       containers:
+#       - name: control
+#         image: ansible_controller:0.1
+#         imagePullPolicy: IfNotPresent
+#         tty: true
+#       restartPolicy: Always
+
+---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: jenkins-master-clusterip
+# spec:
+#   type: ClusterIP
+#   ports:
+#     - name: "ssh-port"
+#       protocol: "TCP"
+#       port: 22
+#       targetPort: 22
+#   selector:
+#     app: jenkins-pod

@@ -12,48 +12,37 @@ docker build -t jenkins-master:blank .
 
 ```
 cd /path/to/docker/cicd-local-dev/ansible/centos7/
-docker build -t ansible_controller:0.1 .
+DOCKER_BUILDKIT=1 docker build -t ansible_controller:0.1 .
 ```
 
-## Prepare localhost storage
 
-
-
-
-## Run local env
+## Run local k8s cluster
 
 ```
 $ cd /path/to/docker/cicd-local-dev/k8s/
 
 $ kubectl apply -f  local-dev.yaml
 
-$ kubectl exec -it $(kubectl get pods -l app=ansible-pod -o jsonpath='{.items[*].metadata.name}') -- /bin/bash
-
 $ kubectl exec -it $(kubectl get pods -l app=jenkins-pod -o jsonpath='{.items[*].metadata.name}') -- /bin/bash
-```
 
-### Tips
 
-```
+### To see info
+
 $ kubectl get pods --show-labels
----
-NAME                       READY   STATUS    RESTARTS   AGE   LABELS
-ansible-689f5cdfc5-mbp6l   1/1     Running   0          26m   app=ansible-pod,pod-template-hash=689f5cdfc5
-jenkins-675b975d98-7hkl7   1/1     Running   0          48s   app=jenkins-pod,pod-template-hash=675b975d98
----
-
 $ kubectl get -f local-dev.yaml
----
-NAME      READY   UP-TO-DATE   AVAILABLE   AGE
-ansible   1/1     1            1           11m
-jenkins   1/1     1            1           75s
----
+$ kubectl get deployment jenkins
 
-$ kubectl get deployment ansible
----
-NAME      READY   UP-TO-DATE   AVAILABLE   AGE
-ansible   1/1     1            1           11m
----
+### Confirm Jenkins Pod IP
+$ kubectl get pods -l app=jenkins-pod -o wide
+$ kubectl get pods -l app=jenkins-pod -o yaml | grep "podIP:"
+$ kubectl get pods -l app=jenkins-pod -o custom-columns="NAME:{metadata.name}, IP:{status.podIP}"
+
+### Service info
+$ kubectl get svc jenkins-master-nodeport
+$ kubectl describe svc jenkins-master-nodeport
+
+### MEMO SSH access within cluster
+$ ssh root@jenkins-master-clusterip
 
 ### If you want to delete
 kubectl delete -f local-dev.yaml
@@ -65,24 +54,24 @@ kubectl delete -f local-dev.yaml
 ### Get private key of Jenkins
 $ kubectl exec -it $(kubectl get pods -l app=jenkins-pod -o jsonpath='{.items[*].metadata.name}') -- cat /root/.ssh/id_rsa
 
-### Confirm Jenkins Pod IP
-$ kubectl get pods -l app=jenkins-pod -o wide
-$ kubectl get pods -l app=jenkins-pod -o yaml | grep "podIP:"
-$ kubectl get pods -l app=jenkins-pod -o custom-columns="NAME:{metadata.name}, IP:{status.podIP}"
+```
 
-### Service info
-$ kubectl get svc jenkins-master-clusterip
+### Start Ansible container
 
-$ kubectl describe svc jenkins-master-clusterip
-
-### SSH access within cluster
-$ ssh root@jenkins-master-clusterip
+```
+docker run -it --rm -v /c/Users/Public/Downloads:/tmp/downloads \
+                    -v /c/Users/Public/repos:/home/ansible/repos \
+                    ansible_controller:0.1 bash
 
 ### SSH access from external
 ###   jenkins-master-nodeport > nodePort
-$ ssh -p 30022 root@localhost
-```
+ssh -p 30022 root@host.docker.internal
 
+
+### FYI from WSL2 terminal
+$ ssh -p 30022 root@localhost
+
+```
 
 ### References
 
