@@ -30,10 +30,10 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - name: "ssh-port"
-    protocol: "TCP"
-    port: 22
-    targetPort: 22
+    - name: "ssh-port"
+      protocol: "TCP"
+      port: 22
+      targetPort: 22
   selector:
     app: jenkins-pod
 
@@ -55,22 +55,22 @@ spec:
         app: jenkins-pod
     spec:
       containers:
-      - name: jk2
-        image: jenkins-master:blank
-        imagePullPolicy: IfNotPresent
-        tty: true
-        volumeMounts:
-          - name: jenkins-storage
-            mountPath: /app
-        ports:
-        - containerPort: 22
-        lifecycle:
-          postStart:
-            exec:
-              command:
-              - sh
-              - -c
-              - "/etc/init.d/sshd start"
+        - name: jk2
+          image: jenkins-master:blank
+          imagePullPolicy: IfNotPresent
+          tty: true
+          volumeMounts:
+            - name: jenkins-storage
+              mountPath: /app
+          ports:
+            - containerPort: 22
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                - sh
+                - -c
+                - "/etc/init.d/sshd start"
       restartPolicy: Always
       volumes:
         - name: jenkins-storage
