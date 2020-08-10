@@ -27,9 +27,9 @@ $ cd /path/to/docker/cicd-local-dev/k8s/
 
 $ kubectl apply -f  local-dev.yaml
 
-$ kubectl exec -it $(kubectl get pods --selector=app=ansible-pod -o jsonpath='{.items[*].metadata.name}') -- /bin/bash
+$ kubectl exec -it $(kubectl get pods -l app=ansible-pod -o jsonpath='{.items[*].metadata.name}') -- /bin/bash
 
-$ kubectl exec -it $(kubectl get pods --selector=app=jenkins-pod -o jsonpath='{.items[*].metadata.name}') -- /bin/bash
+$ kubectl exec -it $(kubectl get pods -l app=jenkins-pod -o jsonpath='{.items[*].metadata.name}') -- /bin/bash
 ```
 
 ### Tips
