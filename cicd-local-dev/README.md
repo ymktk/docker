@@ -48,14 +48,6 @@ $ ssh root@jenkins-master-clusterip
 kubectl delete -f local-dev.yaml
 ```
 
-## Access to pods
-
-```
-### Get private key of Jenkins
-$ kubectl exec -it $(kubectl get pods -l app=jenkins-pod -o jsonpath='{.items[*].metadata.name}') -- cat /root/.ssh/id_rsa
-
-```
-
 ### Start Ansible container
 
 ```
@@ -63,13 +55,15 @@ docker run -it --rm -v /c/Users/Public/Downloads:/tmp/downloads \
                     -v /c/Users/Public/repos:/home/ansible/repos \
                     ansible_controller:0.1 bash
 
-### SSH access from external
+### FYI SSH access from external
 ###   jenkins-master-nodeport > nodePort
 ssh -p 30022 root@host.docker.internal
 
-
 ### FYI from WSL2 terminal
 $ ssh -p 30022 root@localhost
+
+### FYI Get private key of Jenkins
+$ kubectl exec -it $(kubectl get pods -l app=jenkins-pod -o jsonpath='{.items[*].metadata.name}') -- cat /root/.ssh/id_rsa
 
 ```
 
