@@ -23,13 +23,13 @@ docker build -t ansible_controller:0.1 .
 ## Run local env
 
 ```
-    $ cd /path/to/docker/cicd-local-dev/k8s/
+$ cd /path/to/docker/cicd-local-dev/k8s/
 
-    $ kubectl apply -f  local-dev.yaml
+$ kubectl apply -f  local-dev.yaml
 
-    $ kubectl exec -it $(kubectl get pods --selector=app=ansible-pod -o jsonpath='{.items[*].metadata.name}') -- /bin/bash
+$ kubectl exec -it $(kubectl get pods --selector=app=ansible-pod -o jsonpath='{.items[*].metadata.name}') -- /bin/bash
 
-    $ kubectl exec -it $(kubectl get pods --selector=app=jenkins-pod -o jsonpath='{.items[*].metadata.name}') -- /bin/bash
+$ kubectl exec -it $(kubectl get pods --selector=app=jenkins-pod -o jsonpath='{.items[*].metadata.name}') -- /bin/bash
 ```
 
 ### Tips
@@ -55,33 +55,25 @@ NAME      READY   UP-TO-DATE   AVAILABLE   AGE
 ansible   1/1     1            1           11m
 ---
 
-
-## If you want to delete
+### If you want to delete
 kubectl delete -f local-dev.yaml
 ```
 
 ## Communication between pods
 
 ```
-# Get private key of Jenkins
+### Get private key of Jenkins
 $ kubectl exec -it $(kubectl get pods -l app=jenkins-pod -o jsonpath='{.items[*].metadata.name}') -- cat /root/.ssh/id_rsa
 
-# Confirm Jenkins Pod IP
-
+### Confirm Jenkins Pod IP
 $ kubectl get pods -l app=jenkins-pod -o wide
 $ kubectl get pods -l app=jenkins-pod -o yaml | grep "podIP:"
 $ kubectl get pods -l app=jenkins-pod -o custom-columns="NAME:{metadata.name}, IP:{status.podIP}"
 
-
-# Service info
+### Service info
 $ kubectl get svc svc-jenkins-master
 
 $ kubectl describe svc svc-jenkins-master
-
-
-
-# NG, NOW IP OK
-ssh root@svc-jenkins-master
 ```
 
 
