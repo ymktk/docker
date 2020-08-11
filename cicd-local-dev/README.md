@@ -87,8 +87,8 @@ $ ansible-playbook -i inventory playbook-build-tomcat.yml -vv
 
 
 # Jenkins, Install Master wo plugins
-ansible-playbook -i inventory playbook-build-jenkins.yml --list-tasks
-ansible-playbook -i inventory playbook-build-jenkins.yml -vv
+$ ansible-playbook -i inventory playbook-build-jenkins.yml --list-tasks
+$ ansible-playbook -i inventory playbook-build-jenkins.yml -vv
 
 # Jenkins, Install Jenkins plugins
 ansible-playbook -i inventory playbook-build-jenkins.yml --tags "plugins" --list-tasks
