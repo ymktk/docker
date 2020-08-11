@@ -12,6 +12,11 @@ spec:
       nodePort: 30022
       port: 22
       targetPort: 22
+    - name: "http-port"
+      protocol: "TCP"
+      nodePort: 30088
+      port: 8080
+      targetPort: 8080
   selector:
     app: jenkins-pod
 
