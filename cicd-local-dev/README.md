@@ -4,14 +4,14 @@
 ### 1. Jenkins Master test machine blank image
 
 ```bash
-cd /path/to/docker/cicd-local-dev/jenkins-master/
+cd /path/to/docker-k8s/cicd-local-dev/jenkins-master/
 docker build -t jenkins-master:blank .
 ```
 
 ### 2. Ansible Controller
 
 ```bash
-cd /path/to/docker/cicd-local-dev/ansible_controller/centos7/
+cd /path/to/docker-k8s/cicd-local-dev/ansible_controller/centos7/
 DOCKER_BUILDKIT=1 docker build -t ansible_controller:0.1 .
 ```
 
@@ -19,7 +19,7 @@ DOCKER_BUILDKIT=1 docker build -t ansible_controller:0.1 .
 ## Run local k8s cluster
 
 ```bash
-$ cd /path/to/docker/cicd-local-dev/k8s/
+$ cd /path/to/docker-k8s/cicd-local-dev/k8s/
 
 $ kubectl apply -f  local-dev.yaml
 
@@ -50,19 +50,34 @@ $ kubectl exec -it $(kubectl get pods -l app=jenkins-pod -o jsonpath='{.items[*]
 ### Start Ansible container
 
 ```bash
-docker run -it --rm -v /c/Users/Public/Downloads:/tmp/downloads \
-                    -v /c/Users/Public/repos:/home/ansible/repos \
-                    ansible_controller:0.1 bash
-
-### SSH access from external
+### FYI SSH access from external
 ###   jenkins-master-nodeport > nodePort
-ssh -p 30022 root@host.docker.internal
+# $ ssh -p 30022 root@host.docker.internal
+### password -> /path/to/docker-k8s/cicd-local-dev/jenkins-master/Dockerfile
 
-### FYI from WSL2 terminal
+### FYI SSH access from WSL2 terminal
 # $ ssh -p 30022 root@localhost
 
-### FYI Get private key of Jenkins
-# $ kubectl exec -it $(kubectl get pods -l app=jenkins-pod -o jsonpath='{.items[*].metadata.name}') -- cat /root/.ssh/id_rsa
+### Get private key of Jenkins
+$ export TMPDWL=/c/Users/Public/Downloads
+$ kubectl exec -it $(kubectl get pods -l app=jenkins-pod -o jsonpath='{.items[*].metadata.name}') \
+            -- cat /root/.ssh/id_rsa \
+            >> $TMPDWL/jenkins-id_rsa
+$ ls -l $TMPDWL/jenkins-id_rsa
+
+
+### Start Ansible controller
+$ docker run -it --rm -v /c/Users/Public/Downloads:/tmp/downloads \
+                      -v /c/Users/Public/repos:/home/ansible/repos \
+                      ansible_controller:0.1 bash
+
+# Ansible !!!
+cd ~/repos/ansible/roles/
+
+### Connection test
+# $ ssh -p 30022 -i /tmp/downloads/jenkins-id_rsa root@host.docker.internal
+# $ ansible -i inventory jenkins -m ping -u root -vvv
+
 
 ```
 
