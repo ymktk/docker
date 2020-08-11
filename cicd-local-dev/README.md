@@ -11,7 +11,7 @@ docker build -t jenkins-master:blank .
 ### 2. Ansible Controller
 
 ```
-cd /path/to/docker/cicd-local-dev/ansible/centos7/
+cd /path/to/docker/cicd-local-dev/ansible_controller/centos7/
 DOCKER_BUILDKIT=1 docker build -t ansible_controller:0.1 .
 ```
 
@@ -55,7 +55,7 @@ docker run -it --rm -v /c/Users/Public/Downloads:/tmp/downloads \
                     -v /c/Users/Public/repos:/home/ansible/repos \
                     ansible_controller:0.1 bash
 
-### FYI SSH access from external
+### SSH access from external
 ###   jenkins-master-nodeport > nodePort
 ssh -p 30022 root@host.docker.internal
 
