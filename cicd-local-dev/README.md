@@ -71,15 +71,41 @@ $ docker run -it --rm -v /c/Users/Public/Downloads:/tmp/downloads \
                       -v /c/Users/Public/repos:/home/ansible/repos \
                       ansible_controller:0.1 bash
 
-# Ansible !!!
-cd ~/repos/ansible/roles/
-
 ### Connection test
+# $ cd ~/repos/ansible/roles/
 # $ ssh -p 30022 -i /tmp/downloads/jenkins-id_rsa root@host.docker.internal
 # $ ansible -i inventory jenkins -m ping -u root -vvv
+```
 
+### Setup Jenkins Master
+
+```bash
+# tomcat 9, Unarchive tomcat.tar.gz + Setup tomcat (common)
+$ cd ~/repos/ansible/roles/
+$ ansible-playbook -i inventory playbook-build-tomcat.yml --list-tasks
+$ ansible-playbook -i inventory playbook-build-tomcat.yml -vv
+
+
+# Jenkins, Install Master wo plugins
+ansible-playbook -i inventory playbook-build-jenkins.yml --list-tasks
+ansible-playbook -i inventory playbook-build-jenkins.yml -vv
+
+# Jenkins, Install Jenkins plugins
+ansible-playbook -i inventory playbook-build-jenkins.yml --tags "plugins" --list-tasks
+ansible-playbook -i inventory playbook-build-jenkins.yml --tags "plugins" -vv
+
+
+# Start Jenkins
+docker exec -it jk bash
+systemctl start  jenkins2
+systemctl status jenkins2
+
+#   Setup tomcat (Each instance)
+ansible-playbook -i inventory playbook-build-tomcat.yml --tags "instances" --list-tasks
+ansible-playbook -i inventory playbook-build-tomcat.yml --tags "instances" -vv
 
 ```
+
 
 ### References
 
