@@ -8,6 +8,7 @@ RUN set -x \
             openssh.x86_64 \
             openssh-server.x86_64 \
             initscripts.x86_64 \
+            java-11-openjdk-devel \
     && mkdir /var/run/sshd \
     && echo 'root:password' | chpasswd \
     && ssh-keygen -t rsa -b 1024 -N "" -f "/root/.ssh/id_rsa" \
