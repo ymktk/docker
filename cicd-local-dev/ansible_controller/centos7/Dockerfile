@@ -10,7 +10,10 @@ RUN set -x \
             python36-pip \
             python36-devel  \
             openssh-clients \
+            which \
             wget \
+            telnet \
+            traceroute \
             kubectl \
     && yum clean all \
     && pip3 install ansible

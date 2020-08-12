@@ -5,14 +5,14 @@
 
 ```bash
 cd /path/to/docker-k8s/cicd-local-dev/jenkins-master/
-docker build -t jenkins-master:blank .
+DOCKER_BUILDKIT=1 docker build -t jenkins-master:blank .
 ```
 
 ### 2. Ansible Controller
 
 ```bash
 cd /path/to/docker-k8s/cicd-local-dev/ansible_controller/centos7/
-DOCKER_BUILDKIT=1 docker build -t ansible_controller:0.1 .
+DOCKER_BUILDKIT=1 docker build -t ansible_controller .
 ```
 
 
@@ -69,7 +69,7 @@ $ ls -l $TMPDWL/jenkins-id_rsa
 ### Start Ansible controller
 $ docker run -it --rm -v /c/Users/Public/Downloads:/tmp/downloads \
                       -v /c/Users/Public/repos:/home/ansible/repos \
-                      ansible_controller:0.1 bash
+                      ansible_controller:latest bash
 
 ### Connection test
 # $ cd ~/repos/ansible/roles/
