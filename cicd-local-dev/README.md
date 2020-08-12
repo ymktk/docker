@@ -62,7 +62,7 @@ $ kubectl exec -it $(kubectl get pods -l app=jenkins-pod -o jsonpath='{.items[*]
 $ export TMPDWL=/c/Users/Public/Downloads
 $ kubectl exec -it $(kubectl get pods -l app=jenkins-pod -o jsonpath='{.items[*].metadata.name}') \
             -- cat /root/.ssh/id_rsa \
-            >> $TMPDWL/jenkins-id_rsa
+            > $TMPDWL/jenkins-id_rsa
 $ ls -l $TMPDWL/jenkins-id_rsa
 
 
