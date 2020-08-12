@@ -21,6 +21,27 @@ spec:
     app: jenkins-pod
 
 ---
+  apiVersion: v1
+  kind: Service
+  metadata:
+    name: artifactory-master-nodeport
+  spec:
+    type: NodePort
+    ports:
+      - name: "rt-http-port-8081"
+        protocol: "TCP"
+        nodePort: 30881
+        port: 8081
+        targetPort: 8081
+      - name: "rt-http-port-8082"
+        protocol: "TCP"
+        nodePort: 30882
+        port: 8082
+        targetPort: 8082
+    selector:
+      app: artifactory-pod
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -47,6 +68,7 @@ spec:
               mountPath: /app
           ports:
             - containerPort: 22
+            - containerPort: 8080
           lifecycle:
             postStart:
               exec:
@@ -61,3 +83,36 @@ spec:
             path: /tmp/jenkins-dev-volume
             type: DirectoryOrCreate
           # emptyDir: {}
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: artifactory
+  name: artifactory
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: artifactory-pod
+  template:
+    metadata:
+      labels:
+        app: artifactory-pod
+    spec:
+      containers:
+        - name: artifactory-oss
+          image: artifactory-oss:7.7.3
+          imagePullPolicy: IfNotPresent
+          # tty: true
+          volumeMounts:
+            - name: artifactory-dev-volume
+              mountPath: /var/opt/jfrog/artifactory
+          ports:
+            - containerPort: 8081
+            - containerPort: 8082
+      restartPolicy: Always
+      volumes:
+        - name: artifactory-dev-volume
+          emptyDir: {}

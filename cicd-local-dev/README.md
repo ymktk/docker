@@ -112,8 +112,18 @@ $ ansible-playbook -i inventory playbook-build-jenkins.yml --tags "plugins" -vv
 ```
 
 
+### Setup Artifactory
+
+- TODO inject config file?
+
+http://localhost:30881/
+http://localhost:30882/
+
+Initial_ID: admin/password
+
 ### References
 
++ [Installing Artifactory with Docker](https://www.jfrog.com/confluence/display/RTF6X/Installing+with+Docker)
 + [kubectlチートシート](https://kubernetes.io/ja/docs/reference/kubectl/cheatsheet/)
 + [実行中のコンテナへのシェルを取得する](https://kubernetes.io/ja/docs/tasks/debug-application-cluster/get-shell-running-container/)
   + [Get a Shell to a Running Container](https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/)
