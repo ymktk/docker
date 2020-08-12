@@ -92,9 +92,12 @@ $ ansible-playbook -i inventory playbook-build-jenkins.yml -vv
 
 
 # Start jenkins @ jenkins-pod
+$ su - jenkins
 $ /app/var/lib/tomcats/jenkins2/bin/instance.sh start
 
 http://localhost:30088/jenkins/
+
+$ cat /app/var/lib/jenkins_home/secrets/initialAdminPassword
 
 # Use this ID & PW
 # ->  /path/to/ansible/roles/jenkins/defaults/main.yml
@@ -103,17 +106,7 @@ http://localhost:30088/jenkins/
 
 # Jenkins, Install Jenkins plugins
 $ ansible-playbook -i inventory playbook-build-jenkins.yml --tags "plugins" --list-tasks
-ansible-playbook -i inventory playbook-build-jenkins.yml --tags "plugins" -vv
-
-
-# Start Jenkins
-docker exec -it jk bash
-systemctl start  jenkins2
-systemctl status jenkins2
-
-#   Setup tomcat (Each instance)
-ansible-playbook -i inventory playbook-build-tomcat.yml --tags "instances" --list-tasks
-ansible-playbook -i inventory playbook-build-tomcat.yml --tags "instances" -vv
+$ ansible-playbook -i inventory playbook-build-jenkins.yml --tags "plugins" -vv
 
 ```
 
