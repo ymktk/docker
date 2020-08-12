@@ -17,6 +17,9 @@ RUN set -x \
     && useradd -m jenkins \
     && useradd -m tomcat
 
+WORKDIR /etc
+RUN ln -nfs ../usr/share/zoneinfo/Asia/Singapore localtime
+
 #USER jenkins
 #WORKDIR /home/jenkins
 #RUN  ssh-keygen -t rsa -b 1024 -N "" -f "/home/jenkins/.ssh/id_rsa"
