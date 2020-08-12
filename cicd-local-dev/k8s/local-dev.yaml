@@ -43,7 +43,7 @@ spec:
           imagePullPolicy: IfNotPresent
           tty: true
           volumeMounts:
-            - name: jenkins-storage
+            - name: jenkins-dev-volume
               mountPath: /app
           ports:
             - containerPort: 22
@@ -56,5 +56,8 @@ spec:
                 - "/etc/init.d/sshd start"
       restartPolicy: Always
       volumes:
-        - name: jenkins-storage
-          emptyDir: {}
+        - name: jenkins-dev-volume
+          hostPath:
+            path: /tmp/jenkins-dev-volume
+            type: DirectoryOrCreate
+          # emptyDir: {}
