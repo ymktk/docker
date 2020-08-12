@@ -92,7 +92,7 @@ $ ansible-playbook -i inventory playbook-build-jenkins.yml -vv
 
 
 # Start jenkins @ jenkins-pod
-$ /var/lib/tomcats/jenkins2/bin/instance.sh start
+$ /app/var/lib/tomcats/jenkins2/bin/instance.sh start
 
 http://localhost:30088/jenkins/
 
