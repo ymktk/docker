@@ -105,6 +105,7 @@ $ cat /app/var/lib/jenkins_home/secrets/initialAdminPassword
 # --> jenkins_admin_password
 
 # Jenkins, Install Jenkins plugins
+# 多すぎてタイムアウトしだしたら、少しずつにして、インストール & Jenkins再起動を繰り返す
 $ ansible-playbook -i inventory playbook-build-jenkins.yml --tags "plugins" --list-tasks
 $ ansible-playbook -i inventory playbook-build-jenkins.yml --tags "plugins" -vv
 
