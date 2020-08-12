@@ -72,9 +72,9 @@ $ docker run -it --rm -v /c/Users/Public/Downloads:/tmp/downloads \
                       ansible_controller:latest bash
 
 ### Connection test
-# $ cd ~/repos/ansible/roles/
-# $ ssh -p 30022 -i /tmp/downloads/jenkins-id_rsa root@host.docker.internal
-# $ ansible -i inventory jenkins -m ping -u root -vvv
+$ cd ~/repos/ansible/roles/
+$ ssh -p 30022 -i /tmp/downloads/jenkins-id_rsa root@host.docker.internal
+$ ansible -i inventory jenkins -m ping -u root -vvv
 ```
 
 ### Setup Jenkins Master
