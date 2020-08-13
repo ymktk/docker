@@ -92,6 +92,7 @@ $ ansible-playbook -i inventory playbook-build-jenkins.yml -vv
 
 
 # Start jenkins @ jenkins-pod
+$ kubectl exec -it $(kubectl get pods -l app=jenkins-pod -o jsonpath='{.items[*].metadata.name}') -- /bin/bash
 $ su - jenkins
 $ /app/var/lib/tomcats/jenkins2/bin/instance.sh start
 
