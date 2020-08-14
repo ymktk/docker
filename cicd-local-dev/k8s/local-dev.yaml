@@ -80,10 +80,24 @@ spec:
       restartPolicy: Always
       volumes:
         - name: jenkins-dev-volume
-          hostPath:
-            path: /tmp/jenkins-dev-volume
-            type: DirectoryOrCreate
+          persistentVolumeClaim:
+            claimName: jenkins-pv-claim
+          # hostPath:
+          #   path: /tmp/jenkins-dev-volume
+          #   type: DirectoryOrCreate
           # emptyDir: {}
+
+---
+  apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    name: jenkins-pv-claim
+  spec:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 2Gi
 
 ---
 apiVersion: apps/v1

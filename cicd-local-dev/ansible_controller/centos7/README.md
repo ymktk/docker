@@ -15,6 +15,8 @@ ansible --version
 buildctl --version
 kubectl version --client
 
+
+openssl s_client -connect google.com:443 -tls1
 ```
 
 # References

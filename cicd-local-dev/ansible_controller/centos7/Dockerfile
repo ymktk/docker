@@ -14,6 +14,7 @@ RUN set -x \
             wget \
             telnet \
             traceroute \
+            openssl \
             kubectl \
     && yum clean all \
     && pip3 install ansible
