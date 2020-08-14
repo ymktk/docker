@@ -63,6 +63,7 @@ spec:
           image: jenkins-master:blank
           imagePullPolicy: IfNotPresent
           tty: true
+          workingDir: /app
           volumeMounts:
             - name: jenkins-dev-volume
               mountPath: /app
