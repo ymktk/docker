@@ -4,16 +4,16 @@ This docker is having
 - github.com/moby/buildkit v0.7.2
 - kubectl v1.18.6
 
-
 # Usage
 
-As ansible user
 ```bash
-python3 -V
-pip3 -V
-ansible --version
-buildctl --version
-kubectl version --client
+$ docker run -it --rm -v $PWD:/tmp/mount ansible_controller:latest bash
+
+$ python3 -V
+$ pip3 -V
+$ ansible --version
+$ buildctl --version
+$ kubectl version --client
 
 
 openssl s_client -connect google.com:443 -tls1
