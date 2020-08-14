@@ -6,6 +6,14 @@
 ```bash
 cd /path/to/docker-k8s/cicd-local-dev/jenkins-master/
 DOCKER_BUILDKIT=1 docker build -t jenkins-master:blank .
+
+### Get private key of Jenkins
+$ export TMPDWL=/c/Users/Public/Downloads
+$ kubectl exec -it $(kubectl get pods -l app=jenkins-pod -o jsonpath='{.items[*].metadata.name}') \
+      -- cat /root/.ssh/id_rsa \
+      > $TMPDWL/jenkins-id_rsa
+$ ls -l $TMPDWL/jenkins-id_rsa
+$ cat   $TMPDWL/jenkins-id_rsa
 ```
 
 ### 2. Ansible Controller
@@ -24,7 +32,6 @@ $ cd /path/to/docker-k8s/cicd-local-dev/k8s/
 $ kubectl apply -f  local-dev.yaml
 
 $ kubectl exec -it $(kubectl get pods -l app=jenkins-pod -o jsonpath='{.items[*].metadata.name}') -- /bin/bash
-
 
 ### To see info
 # $ kubectl get pods --show-labels
@@ -58,18 +65,10 @@ $ kubectl exec -it $(kubectl get pods -l app=jenkins-pod -o jsonpath='{.items[*]
 ### FYI SSH access from WSL2 terminal
 # $ ssh -p 30022 root@localhost
 
-### Get private key of Jenkins
-$ export TMPDWL=/c/Users/Public/Downloads
-$ kubectl exec -it $(kubectl get pods -l app=jenkins-pod -o jsonpath='{.items[*].metadata.name}') \
-            -- cat /root/.ssh/id_rsa \
-            > $TMPDWL/jenkins-id_rsa
-$ ls -l $TMPDWL/jenkins-id_rsa
-
-
-### Start Ansible controller
-$ docker run -it --rm -v /c/Users/Public/Downloads:/tmp/downloads \
-                      -v /c/Users/Public/repos:/home/ansible/repos \
-                      ansible_controller:latest bash
+$ docker run -it --rm \
+          -v /c/Users/Public/Downloads:/tmp/downloads \
+          -v /c/Users/Public/repos:/home/ansible/repos \
+          ansible_controller:latest bash
 
 ### Connection test
 $ cd ~/repos/ansible/roles/

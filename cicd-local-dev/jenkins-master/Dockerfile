@@ -3,6 +3,10 @@ LABEL maintainer="takahiro.yamaki@example.com"
 
 RUN set -x \
     && yum install -y \
+            curl \
+            libselinux-python \
+            initscripts \
+            git \
             openssh-clients \
             openssh-server-sysvinit.x86_64 \
             openssh.x86_64 \
@@ -14,8 +18,8 @@ RUN set -x \
     && ssh-keygen -t rsa -b 1024 -N "" -f "/root/.ssh/id_rsa" \
     && cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys \
     && chmod 600 /root/.ssh/authorized_keys \
-    && useradd -m jenkins \
-    && useradd -m tomcat
+    && useradd -m -U tomcat \
+    && useradd -m -U jenkins -G tomcat
 
 WORKDIR /etc
 RUN ln -nfs ../usr/share/zoneinfo/Asia/Singapore localtime
