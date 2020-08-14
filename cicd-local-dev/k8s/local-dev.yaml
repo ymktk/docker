@@ -82,10 +82,6 @@ spec:
         - name: jenkins-dev-volume
           persistentVolumeClaim:
             claimName: jenkins-pv-claim
-          # hostPath:
-          #   path: /tmp/jenkins-dev-volume
-          #   type: DirectoryOrCreate
-          # emptyDir: {}
 
 ---
   apiVersion: v1
@@ -120,7 +116,6 @@ spec:
         - name: artifactory-oss
           image: artifactory-oss:7.7.3
           imagePullPolicy: IfNotPresent
-          # tty: true
           volumeMounts:
             - name: artifactory-dev-volume
               mountPath: /var/opt/jfrog/artifactory
@@ -130,4 +125,17 @@ spec:
       restartPolicy: Always
       volumes:
         - name: artifactory-dev-volume
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: artifactory-pv-claim
+
+---
+  apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    name: artifactory-pv-claim
+  spec:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 2Gi

@@ -117,10 +117,11 @@ $ ansible-playbook -i inventory playbook-build-jenkins.yml --tags "plugins" -vv
 
 - TODO inject config file?
 
-http://localhost:30881/
-http://localhost:30882/
+// http://localhost:30881/
+http://localhost:30882/ui/
 
 Initial_ID: admin/password
+e.g. password123
 
 ### References
 
