@@ -23,6 +23,15 @@ cd /path/to/docker-k8s/cicd-local-dev/ansible_controller/centos7/
 DOCKER_BUILDKIT=1 docker build -t ansible_controller .
 ```
 
+### 3. Builder (OpenJDK11 + Gradle)
+
+```bash
+cd /path/to/docker-k8s/cicd-local-dev/builder/gradle/
+DOCKER_BUILDKIT=1 docker build -t builder_gradle .
+
+docker run -it --rm builder_gradle sh
+```
+
 
 ## Run local k8s cluster
 
