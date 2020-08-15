@@ -5,13 +5,13 @@
 
 ```bash
 cd /path/to/docker-k8s/cicd-local-dev/jenkins-master/
-DOCKER_BUILDKIT=1 docker build -t jenkins-master:blank .
+DOCKER_BUILDKIT=1 docker build -t jenkins-master:base .
 
 ### Get private key of Jenkins
 $ export TMPDWL=/c/Users/Public/Downloads
-$ kubectl exec -it $(kubectl get pods -l app=jenkins-pod -o jsonpath='{.items[*].metadata.name}') \
-      -- cat /root/.ssh/id_rsa \
-      > $TMPDWL/jenkins-id_rsa
+docker run --rm jenkins-master:blank cat /root/.ssh/id_rsa > $TMPDWL/jenkins-id_rsa
+# $ kubectl exec -it $(kubectl get pods -l app=jenkins-pod -o jsonpath='{.items[*].metadata.name}') -- cat /root/.ssh/id_rsa > $TMPDWL/jenkins-id_rsa
+
 $ ls -l $TMPDWL/jenkins-id_rsa
 $ cat   $TMPDWL/jenkins-id_rsa
 ```

@@ -18,8 +18,10 @@ RUN set -x \
     && ssh-keygen -t rsa -b 1024 -N "" -f "/root/.ssh/id_rsa" \
     && cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys \
     && chmod 600 /root/.ssh/authorized_keys \
-    && useradd -m -U tomcat \
-    && useradd -m -U jenkins -G tomcat
+    && groupadd -g 500 tomcat \
+    && useradd  -g 500 -u 500 -m tomcat \
+    && groupadd -g 510 jenkins \
+    && useradd  -g 510 -u 510 -m jenkins -G tomcat
 
 WORKDIR /etc
 RUN ln -nfs ../usr/share/zoneinfo/Asia/Singapore localtime

@@ -60,7 +60,7 @@ spec:
     spec:
       containers:
         - name: jk2
-          image: jenkins-master:blank
+          image: jenkins-master:base
           imagePullPolicy: IfNotPresent
           tty: true
           workingDir: /app
