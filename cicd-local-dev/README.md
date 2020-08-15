@@ -1,7 +1,8 @@
+# How to use for local CI/CD development
 
-## Prepare docker images
+## 1. Prepare docker images
 
-### 1. Jenkins Master test machine blank image
+### 1-1. Jenkins Master test machine blank image
 
 ```bash
 cd /path/to/docker-k8s/cicd-local-dev/jenkins-master/
@@ -16,24 +17,24 @@ $ ls -l $TMPDWL/jenkins-id_rsa
 $ cat   $TMPDWL/jenkins-id_rsa
 ```
 
-### 2. Ansible Controller
+### 1-2. Ansible Controller
 
 ```bash
 cd /path/to/docker-k8s/cicd-local-dev/ansible_controller/centos7/
 DOCKER_BUILDKIT=1 docker build -t ansible_controller .
 ```
 
-### 3. Builder (OpenJDK11 + Gradle)
+### 1-3. Builder (OpenJDK11 + Gradle)
 
 ```bash
 cd /path/to/docker-k8s/cicd-local-dev/builder/gradle/
 DOCKER_BUILDKIT=1 docker build -t builder_gradle .
 
-docker run -it --rm builder_gradle sh
+docker run -it --rm -v /c/Users/Public/repos:/home/jenkins/repos builder_gradle bash
 ```
 
 
-## Run local k8s cluster
+## 2. Apply to local k8s cluster
 
 ```bash
 $ cd /path/to/docker-k8s/cicd-local-dev/k8s/
@@ -63,7 +64,7 @@ $ kubectl exec -it $(kubectl get pods -l app=jenkins-pod -o jsonpath='{.items[*]
 # $ kubectl delete -f local-dev.yaml
 ```
 
-### Start Ansible container
+### 3. Start Ansible container
 
 ```bash
 ### FYI SSH access from external
