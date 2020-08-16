@@ -1,0 +1,141 @@
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-master-nodeport
+spec:
+  type: NodePort
+  ports:
+    - name: "ssh-port"
+      protocol: "TCP"
+      nodePort: 30022
+      port: 22
+      targetPort: 22
+    - name: "http-port"
+      protocol: "TCP"
+      nodePort: 30088
+      port: 8080
+      targetPort: 8080
+  selector:
+    app: jenkins-pod
+
+---
+  apiVersion: v1
+  kind: Service
+  metadata:
+    name: artifactory-master-nodeport
+  spec:
+    type: NodePort
+    ports:
+      - name: "rt-http-port-8081"
+        protocol: "TCP"
+        nodePort: 30881
+        port: 8081
+        targetPort: 8081
+      - name: "rt-http-port-8082"
+        protocol: "TCP"
+        nodePort: 30882
+        port: 8082
+        targetPort: 8082
+    selector:
+      app: artifactory-pod
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: jenkins
+  name: jenkins
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins-pod
+  template:
+    metadata:
+      labels:
+        app: jenkins-pod
+    spec:
+      containers:
+        - name: jk2
+          image: jenkins-master:base
+          imagePullPolicy: IfNotPresent
+          tty: true
+          workingDir: /app
+          volumeMounts:
+            - name: jenkins-dev-volume
+              mountPath: /app
+          ports:
+            - containerPort: 22
+            - containerPort: 8080
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                - sh
+                - -c
+                - "/etc/init.d/sshd start"
+      restartPolicy: Always
+      volumes:
+        - name: jenkins-dev-volume
+          persistentVolumeClaim:
+            claimName: jenkins-pv-claim
+
+---
+  apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    name: jenkins-pv-claim
+  spec:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 2Gi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: artifactory
+  name: artifactory
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: artifactory-pod
+  template:
+    metadata:
+      labels:
+        app: artifactory-pod
+    spec:
+      containers:
+        - name: artifactory-oss
+          image: artifactory-oss:7.7.3
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: artifactory-dev-volume
+              mountPath: /var/opt/jfrog/artifactory
+          ports:
+            - containerPort: 8081
+            - containerPort: 8082
+      restartPolicy: Always
+      volumes:
+        - name: artifactory-dev-volume
+          persistentVolumeClaim:
+            claimName: artifactory-pv-claim
+
+---
+  apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    name: artifactory-pv-claim
+  spec:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 2Gi

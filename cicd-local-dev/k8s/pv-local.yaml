@@ -1,0 +1,35 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jenkins-pv-hostpath
+  labels:
+    type: local
+spec:
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /tmp/jenkins-pv-hostpath
+    type: DirectoryOrCreate
+  # emptyDir: {}
+
+---
+  apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    name: artifactory-pv-hostpath
+    labels:
+      type: local
+  spec:
+    capacity:
+      storage: 2Gi
+    accessModes:
+      - ReadWriteOnce
+    persistentVolumeReclaimPolicy: Retain
+    hostPath:
+      path: /tmp/artifactory-pv-hostpath
+      type: DirectoryOrCreate
+    # emptyDir: {}
